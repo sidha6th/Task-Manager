@@ -40,65 +40,89 @@ class _FilterBottomSheetWidgetState extends State<FilterBottomSheetWidget> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const TextWidget(
-                'Filter & Sort Tasks',
-                autoFocus: true,
-              ),
-              IconButton(
-                icon: const Icon(Icons.close),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ],
-          ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: 10,
-            children: [
-              const TextWidget('Filter by Status'),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  spacing: 8,
-                  children: TaskFilters.values.map((filter) {
-                    return ChoiceChip(
-                      key: ValueKey(filter.name),
-                      label: TextWidget(filter.name),
-                      selected: selectedFilter == filter,
-                      onSelected: (bool selected) {
-                        if (selected) {
-                          setState(() => selectedFilter = filter);
-                        }
-                      },
-                    );
-                  }).toList(),
+              const TextWidget('Filter & Sort Tasks'),
+              Semantics(
+                hint: 'double tap to close filter',
+                child: ExcludeSemantics(
+                  child: IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () => Navigator.pop(context),
+                  ),
                 ),
               ),
             ],
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: 10,
-            children: [
-              const TextWidget('Sort by'),
-              SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                child: Row(
-                  spacing: 8,
-                  children: TaskSortOptions.values.map((sort) {
-                    return ChoiceChip(
-                      key: ValueKey(sort.name),
-                      label: TextWidget(sort.name),
-                      selected: selectedSort == sort,
-                      onSelected: (bool selected) {
-                        if (selected) {
-                          setState(() => selectedSort = sort);
-                        }
-                      },
-                    );
-                  }).toList(),
+          Semantics(
+            label: 'Filter the tasks by selecting any of the below',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const TextWidget('Filter by Status'),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    spacing: 8,
+                    children: TaskFilters.values.map((filter) {
+                      final selected = selectedFilter == filter;
+                      return Semantics(
+                        selected: selected,
+                        hint: selected
+                            ? filter.name
+                            : 'Double tap to filter by ${filter.name}',
+                        child: ExcludeSemantics(
+                          child: ChoiceChip(
+                            key: ValueKey(filter.name),
+                            label: TextWidget(filter.name),
+                            selected: selected,
+                            onSelected: (bool selected) {
+                              if (selected) {
+                                setState(() => selectedFilter = filter);
+                              }
+                            },
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
+          ),
+          Semantics(
+            label: 'Sort the tasks by selecting any of the below',
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const TextWidget('Sort by'),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    spacing: 8,
+                    children: TaskSortOptions.values.map((sort) {
+                      final selected = selectedSort == sort;
+                      return Semantics(
+                        selected: selected,
+                        hint: selected
+                            ? sort.name
+                            : 'Double tap to sort by ${sort.name}',
+                        child: ExcludeSemantics(
+                          child: ChoiceChip(
+                            key: ValueKey(sort.name),
+                            label: TextWidget(sort.name),
+                            selected: selected,
+                            onSelected: (bool selected) {
+                              if (selected) {
+                                setState(() => selectedSort = sort);
+                              }
+                            },
+                          ),
+                        ),
+                      );
+                    }).toList(),
+                  ),
+                ),
+              ],
+            ),
           ),
           SizedBox(
             width: double.infinity,
@@ -106,6 +130,7 @@ class _FilterBottomSheetWidgetState extends State<FilterBottomSheetWidget> {
               padding: const EdgeInsets.all(10),
               child: BorderedRoundedButtonWidget(
                 label: 'Apply',
+                semanticHint: 'Double tap to apply the filter',
                 onTap: _onTapApply,
                 borderThickness: 2,
                 icon: Icons.auto_awesome,

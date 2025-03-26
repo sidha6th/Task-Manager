@@ -25,6 +25,7 @@ class _PrioritySegmentedSelectorState extends State<PrioritySegmentedSelector> {
       .map(
         (priority) => ButtonSegment(
           value: priority,
+          tooltip: priority.name,
           label: TextWidget(priority.name),
         ),
       )
@@ -40,12 +41,16 @@ class _PrioritySegmentedSelectorState extends State<PrioritySegmentedSelector> {
           'PRIORITY',
           style: context.theme.textTheme.bodyMedium,
         ),
-        SegmentedButton(
-          segments: _segments,
-          showSelectedIcon: false,
-          selected: {_selectedPriority},
-          expandedInsets: EdgeInsets.zero,
-          onSelectionChanged: _onChangeSelection,
+        Semantics(
+          label: 'Task priority',
+          hint: 'Double tap to change priority',
+          child: SegmentedButton(
+            segments: _segments,
+            showSelectedIcon: false,
+            selected: {_selectedPriority},
+            expandedInsets: EdgeInsets.zero,
+            onSelectionChanged: _onChangeSelection,
+          ),
         ),
       ],
     );

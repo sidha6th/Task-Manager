@@ -34,6 +34,7 @@ class DetailedPage extends StatefulWidget {
 class _DetailedPageState extends State<DetailedPage> {
   final _scaffoldMessengerKey = GlobalKey<ScaffoldMessengerState>();
   late var _task = widget.task;
+  bool statusChanged = false;
 
   @override
   void initState() {
@@ -105,7 +106,14 @@ class _DetailedPageState extends State<DetailedPage> {
                         ),
                       ],
                     ),
-                    TextWidget(_task!.description),
+                    Row(
+                      children: [
+                        TextWidget(
+                          _task!.description,
+                          margin: const EdgeInsets.only(bottom: 10),
+                        ),
+                      ],
+                    ),
                   },
                   const SizedBox(height: 20),
                   RoundedKeyValueCardWidget(
@@ -133,7 +141,8 @@ class _DetailedPageState extends State<DetailedPage> {
                     builder: (context, state) {
                       final progress = state.data?.currentProgress() ?? 0;
                       return TaskProgressIndicator(
-                        progress: progress,
+                        animate: statusChanged,
+                        currentProgress: progress,
                         onChangeProgress: (value) =>
                             _onChangeProgress(value, context),
                       );
@@ -168,6 +177,7 @@ class _DetailedPageState extends State<DetailedPage> {
   }
 
   void _onToggleTaskStatus(BuildContext context) {
+    statusChanged = true;
     context.read<DetailedTaskBloc>().add(
           ToggleDetailedTaskStatusEvent(
             whenCompleted: _whenTaskUpdate,
@@ -176,6 +186,7 @@ class _DetailedPageState extends State<DetailedPage> {
   }
 
   void _onChangeProgress(double value, BuildContext context) {
+    statusChanged = false;
     context.read<DetailedTaskBloc>().add(
           UpdateDetailedTaskProgressEvent(
             progress: value,

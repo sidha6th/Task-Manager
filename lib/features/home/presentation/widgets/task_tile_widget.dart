@@ -45,7 +45,6 @@ class _TaskListTileState extends State<TaskListTile> {
             'Item ${widget.index + 1} of ${widget.tasksLength}, Task title is ${widget.task.title}',
         hint: 'Double-tap to view details',
         value: widget.task.status.isCompleted ? 'Completed' : 'Pending',
-        button: true,
         child: ExcludeSemantics(
           child: Card(
             child: Slidable(
@@ -87,11 +86,12 @@ class _TaskListTileState extends State<TaskListTile> {
                 onTap: () => _onTapTask(context),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 5,
                   children: [
                     TextWidget(
                       widget.task.description,
                       maxLines: 2,
-                      style: context.theme.textTheme.bodySmall,
+                      style: context.theme.textTheme.bodyMedium,
                     ),
                     Row(
                       mainAxisSize: MainAxisSize.min,

@@ -9,13 +9,13 @@ class SplashPage extends StatefulWidget {
 }
 
 class _SplashPageState extends State<SplashPage> {
-  late final tween = Tween<double>(begin: 1, end: 0);
+  late final tween = Tween<double>(begin: 1, end: 0.5);
 
   @override
   Widget build(BuildContext context) {
     return TweenAnimationBuilder(
       tween: tween,
-      duration: const Duration(milliseconds: 300),
+      duration: const Duration(milliseconds: 500),
       curve: Curves.slowMiddle,
       builder: (context, value, child) {
         return Center(

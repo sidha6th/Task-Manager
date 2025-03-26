@@ -6,10 +6,10 @@ import 'package:task_manager/core/global/extension/build_context/build_context_n
 import 'package:task_manager/core/global/extension/build_context/build_context_overlay_widget_extension.dart';
 import 'package:task_manager/core/global/models/task/task.dart';
 import 'package:task_manager/core/global/models/task/task_filter_settings.dart';
+import 'package:task_manager/core/global/widgets/button/rounded_fa_button.dart';
 import 'package:task_manager/features/home/presentation/bloc/home_bloc.dart';
 import 'package:task_manager/features/home/presentation/bloc/home_event.dart';
 import 'package:task_manager/features/home/presentation/bloc/home_state.dart';
-import 'package:task_manager/features/home/presentation/widgets/add_task_fab_button_widget.dart';
 import 'package:task_manager/features/home/presentation/widgets/filter_bottom_sheet_widget.dart';
 import 'package:task_manager/features/home/presentation/widgets/home_app_bar.dart';
 import 'package:task_manager/features/home/presentation/widgets/home_tasks_lists_holding_widget.dart';
@@ -74,7 +74,7 @@ class _HomePageState extends State<HomePage> {
           }
           return RoundedFAButton(
             icon: Icons.add,
-            semanticHint: 'Tap to add new task',
+            semanticHint: 'Double tap to add new task',
             identifier: WidgetIdentifier.taskAddFAButton,
             toolTipOrSemantics: ToolTipOrSemantics.addTask,
             onTap: (tag) => _pushToAddOrUpdatePage(tag, context),

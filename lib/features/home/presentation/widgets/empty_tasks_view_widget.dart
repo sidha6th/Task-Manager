@@ -63,6 +63,8 @@ class EmptyTasksView extends StatelessWidget {
           const SizedBox(height: 16),
           if (!state.isFilterApplied)
             BorderedRoundedButtonWidget(
+              semanticHint: 'Double tap to create your first task',
+              semanticLabel: 'Add your first task',
               onTap: () => context.pushTo(
                 const TaskCreationOrUpdationPage(
                   saveButtonTag: WidgetIdentifier.initalTaskAddButton,

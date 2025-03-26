@@ -101,10 +101,13 @@ flutter test test/integration_test/task_related/task_test.dart
 # Run Theme tests
 flutter test flutter test --update-goldens
 
-#Handling Test Failures: Database Cleanup If a test fails, delete the database file inside the "task_manager"/support directory.
+#Handling Test Failures: Database Cleanup If a test fails, 
+#delete the database file inside the "task_manager"/support directory.
 
 #Reason:
-## Running the test multiple times (5-10+) may cause failures in integration tests. This happens because tasks are loaded using pagination. After several test runs, new tasks may only appear after scrolling the list view, which is not currently handled in the test.
+## Running the test multiple times (5-10+) may cause failures in integration tests.
+## This happens because tasks are loaded using pagination. After several test runs, 
+## new tasks may only appear after scrolling the list view, which is not currently handled in the test.
 
 ```
 

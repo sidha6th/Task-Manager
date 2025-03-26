@@ -7,6 +7,7 @@ import 'package:task_manager/core/global/models/task/task.dart';
 import 'package:task_manager/features/task_creation_or_updation/presentation/widgets/segmented_priority_selector.dart';
 
 Future<void> createTaskTest(WidgetTester tester, Task task) async {
+  await tester.pump(const Duration(seconds: 1));
   final titleField = find.byType(TextFormField).first;
   await tester.enterText(titleField, task.title);
   await tester.pumpAndSettle();

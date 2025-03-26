@@ -8,6 +8,8 @@ class BorderedRoundedButtonWidget extends StatelessWidget {
   const BorderedRoundedButtonWidget({
     required this.onTap,
     required this.label,
+    required this.semanticHint,
+    this.semanticLabel,
     this.icon,
     this.style,
     this.heroTag,
@@ -27,6 +29,8 @@ class BorderedRoundedButtonWidget extends StatelessWidget {
   final TextStyle? style;
   final VoidCallback onTap;
   final Color? borderColor;
+  final String semanticHint;
+  final String? semanticLabel;
   final double borderThickness;
   final WidgetIdentifier? heroTag;
   final EdgeInsets contentPadding;
@@ -49,6 +53,8 @@ class BorderedRoundedButtonWidget extends StatelessWidget {
           borderRadius: radius,
           isLoading: isLoading,
           iconColor: iconColor,
+          semanticHint: semanticHint,
+          semanticLabel: semanticLabel,
           contentPadding: contentPadding,
         ),
       ),

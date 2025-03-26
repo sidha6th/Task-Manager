@@ -4,8 +4,8 @@ import 'package:task_manager/core/global/enums/widget_identifier.dart';
 import 'package:task_manager/core/global/extension/build_context/build_context_extension.dart';
 import 'package:task_manager/core/global/models/task/task.dart';
 import 'package:task_manager/core/global/widgets/button/rounded_button_widget.dart';
+import 'package:task_manager/core/global/widgets/button/rounded_fa_button.dart';
 import 'package:task_manager/core/global/widgets/decoration_box_widget.dart';
-import 'package:task_manager/features/home/presentation/widgets/add_task_fab_button_widget.dart';
 
 class DetailPageFloatingActionButton extends StatelessWidget {
   const DetailPageFloatingActionButton({
@@ -41,12 +41,17 @@ class DetailPageFloatingActionButton extends StatelessWidget {
                   RoundedFAButton(
                     icon: Icons.edit,
                     onTap: onTapEdit,
-                    semanticHint: 'Tap to edit task',
+                    semanticHint: 'double tap to edit task',
                     identifier: WidgetIdentifier.taskEditButton,
                     toolTipOrSemantics: ToolTipOrSemantics.editTask,
                   ),
                   Expanded(
                     child: CommonRoundedButton(
+                      semanticHint:
+                          'double tap to change the status to ${task.status.isCompleted ? 'incomplete' : 'completed'} ',
+                      semanticLabel: task.status.isCompleted
+                          ? 'MARK AS NOT COMPLETED'
+                          : 'MARK AS COMPLETED',
                       borderRadius: borderRadius,
                       onTap: onTapToggleTaskStatus,
                       isLoading: isStatusTogglingInProcess,

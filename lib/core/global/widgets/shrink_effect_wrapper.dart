@@ -51,7 +51,7 @@ class _ShrinkEffectWrapperState extends State<ShrinkEffectWrapper> {
       child = Semantics(
         label: widget.tooltipOrSemantics?.semanticLabel,
         tooltip: widget.tooltipOrSemantics?.toolTip,
-        container: true,
+        hint: widget.sematicHint,
         button: true,
         child: child,
       );

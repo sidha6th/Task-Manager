@@ -8,11 +8,13 @@ import 'package:task_manager/core/global/widgets/text_widget.dart';
 
 class CommonRoundedButton extends StatelessWidget {
   const CommonRoundedButton({
-    required this.borderRadius,
-    required this.isLoading,
+    required this.icon,
     required this.onTap,
     required this.label,
-    required this.icon,
+    required this.isLoading,
+    required this.borderRadius,
+    required this.semanticHint,
+    this.semanticLabel,
     this.iconColor,
     this.style,
     this.heroTag,
@@ -22,6 +24,8 @@ class CommonRoundedButton extends StatelessWidget {
   });
 
   final String label;
+  final String? semanticLabel;
+  final String semanticHint;
   final bool expanded;
   final IconData? icon;
   final bool isLoading;
@@ -38,59 +42,56 @@ class CommonRoundedButton extends StatelessWidget {
         iconColor ?? style?.color ?? context.theme.textTheme.labelLarge?.color;
     return Semantics(
       button: true,
-      label: label,
       tooltip: label,
-      hint: 'Tap to $label',
+      hint: semanticHint,
+      label: semanticLabel,
       child: ExcludeFocus(
         child: ExcludeSemantics(
           child: ShrinkEffectWrapper(
             onTap: _onTap,
             heroTag: heroTag,
-            child: ExcludeSemantics(
-              child: DecoratedBoxWidget(
-                color: context.theme.cardColor,
-                borderRadius: borderRadius,
-                child: Padding(
-                  padding: contentPadding,
-                  child: Row(
-                    mainAxisSize:
-                        expanded ? MainAxisSize.max : MainAxisSize.min,
-                    spacing: 4,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Flexible(
-                        child: AnimatedCrossFade(
-                          duration: const Duration(milliseconds: 200),
-                          crossFadeState: isLoading
-                              ? CrossFadeState.showSecond
-                              : CrossFadeState.showFirst,
-                          firstChild: TextWidget(
-                            label,
-                            style: style ?? context.theme.textTheme.labelLarge,
-                            overflow: TextOverflow.ellipsis,
-                          ),
-                          secondChild: const SizedBox.shrink(),
-                        ),
-                      ),
-                      AnimatedCrossFade(
+            child: DecoratedBoxWidget(
+              color: context.theme.cardColor,
+              borderRadius: borderRadius,
+              child: Padding(
+                padding: contentPadding,
+                child: Row(
+                  mainAxisSize: expanded ? MainAxisSize.max : MainAxisSize.min,
+                  spacing: 4,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Flexible(
+                      child: AnimatedCrossFade(
                         duration: const Duration(milliseconds: 200),
                         crossFadeState: isLoading
                             ? CrossFadeState.showSecond
                             : CrossFadeState.showFirst,
-                        firstChild: icon == null
-                            ? const SizedBox.shrink()
-                            : Icon(
-                                icon,
-                                color: commonIconColor,
-                              ),
-                        secondChild: CircularProgressIndicatorWidget(
-                          dimension: 20,
-                          strokeWidth: 2,
-                          color: commonIconColor,
+                        firstChild: TextWidget(
+                          label,
+                          style: style ?? context.theme.textTheme.labelLarge,
+                          overflow: TextOverflow.ellipsis,
                         ),
-                      )
-                    ],
-                  ),
+                        secondChild: const SizedBox.shrink(),
+                      ),
+                    ),
+                    AnimatedCrossFade(
+                      duration: const Duration(milliseconds: 200),
+                      crossFadeState: isLoading
+                          ? CrossFadeState.showSecond
+                          : CrossFadeState.showFirst,
+                      firstChild: icon == null
+                          ? const SizedBox.shrink()
+                          : Icon(
+                              icon,
+                              color: commonIconColor,
+                            ),
+                      secondChild: CircularProgressIndicatorWidget(
+                        dimension: 20,
+                        strokeWidth: 2,
+                        color: commonIconColor,
+                      ),
+                    )
+                  ],
                 ),
               ),
             ),

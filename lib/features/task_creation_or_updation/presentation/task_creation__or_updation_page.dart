@@ -104,6 +104,12 @@ class _TaskCreationOrUpdationPageState
                           Focus(
                             focusNode: duedateSelectorFocusNode,
                             child: BorderedRoundedButtonWidget(
+                              semanticHint: dueDate == null
+                                  ? 'Double tap to select due date'
+                                  : 'Double tap to change due date',
+                              semanticLabel: dueDate == null
+                                  ? 'Select a due date'
+                                  : 'Selected due date is ${dueDate?.format(DateFormates.MMMMd)} ',
                               label: 'DUE DATE: '.join(dueDate?.format(
                                       DateFormates.MMMMd,
                                       upperCased: true)) ??
@@ -127,6 +133,7 @@ class _TaskCreationOrUpdationPageState
               FloatingActionButtonLocation.centerFloat,
           floatingActionButton: BlocBuilder<TaskCreationOrUpdationBloc,
               TaskCreationOrUpdationState>(builder: (context, state) {
+            final label = '${forTaskCreate ? 'Create' : 'Update'} Task';
             return ConstrainedBox(
               constraints: const BoxConstraints(maxWidth: 500),
               child: SizedBox(
@@ -134,11 +141,13 @@ class _TaskCreationOrUpdationPageState
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: BorderedRoundedButtonWidget(
+                    label: label,
                     borderThickness: 2,
-                    label: '${forTaskCreate ? 'Create' : 'Update'} Task',
+                    semanticLabel: label,
                     isLoading: state.loading,
                     heroTag: widget.saveButtonTag,
                     onTap: () => _onTapAddTask(context),
+                    semanticHint: 'double tap to $label',
                     key: WidgetIdentifier.taskSaveButton.key,
                   ),
                 ),
