@@ -49,3 +49,17 @@ app.*.map.json
 # keeping this platforms locally for testing the layouts
 /macos
 /web
+
+# generated files
+*.g.dart
+
+#test
+support/*
+
+# FVM Version Cache
+.fvm/
+
+#vscode
+.vscode
+
+*txt
