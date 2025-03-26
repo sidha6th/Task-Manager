@@ -5,7 +5,7 @@ import 'package:task_manager/core/global/extension/build_context/build_context_e
 import 'package:task_manager/core/global/models/task/task.dart';
 import 'package:task_manager/core/global/widgets/button/rounded_button_widget.dart';
 import 'package:task_manager/core/global/widgets/decoration_box_widget.dart';
-import 'package:task_manager/core/global/widgets/shrink_effect_wrapper.dart';
+import 'package:task_manager/features/home/presentation/widgets/add_task_fab_button_widget.dart';
 
 class DetailPageFloatingActionButton extends StatelessWidget {
   const DetailPageFloatingActionButton({
@@ -38,20 +38,12 @@ class DetailPageFloatingActionButton extends StatelessWidget {
               child: Row(
                 spacing: 6,
                 children: [
-                  ShrinkEffectWrapper(
-                    onTap: () => onTapEdit(WidgetIdentifier.taskEditButton),
-                    heroTag: WidgetIdentifier.taskEditButton,
-                    tooltipOrSemantics: ToolTipOrSemantics.editTask,
-                    child: Material(
-                      color: Colors.transparent,
-                      child: CircleAvatar(
-                        maxRadius: 26,
-                        child: Icon(
-                          Icons.edit,
-                          color: context.theme.primaryColor,
-                        ),
-                      ),
-                    ),
+                  RoundedFAButton(
+                    icon: Icons.edit,
+                    onTap: onTapEdit,
+                    semanticHint: 'Tap to edit task',
+                    identifier: WidgetIdentifier.taskEditButton,
+                    toolTipOrSemantics: ToolTipOrSemantics.editTask,
                   ),
                   Expanded(
                     child: CommonRoundedButton(

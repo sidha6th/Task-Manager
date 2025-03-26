@@ -31,7 +31,7 @@ class HomeBloc extends Bloc<IHomeEvent, HomeState> {
       event.filterSettings,
     );
 
-    if (state.filterSettings != filterSettings && event.resetPage) {
+    if (state.filterSettings != filterSettings || event.resetPage) {
       await _streamSubscription?.cancel();
       emit(state.toLoading(filterSettings: filterSettings));
     }

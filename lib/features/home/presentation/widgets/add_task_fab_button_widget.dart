@@ -1,39 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manager/core/global/enums/tooltip_and_semantics.dart';
 import 'package:task_manager/core/global/enums/widget_identifier.dart';
 import 'package:task_manager/core/global/extension/build_context/build_context_extension.dart';
 import 'package:task_manager/core/global/widgets/shrink_effect_wrapper.dart';
-import 'package:task_manager/features/home/presentation/bloc/home_bloc.dart';
-import 'package:task_manager/features/home/presentation/bloc/home_state.dart';
 
-class AddTaskFABButtonWidget extends StatelessWidget {
-  const AddTaskFABButtonWidget({required this.onTap, super.key});
+class RoundedFAButton extends StatelessWidget {
+  const RoundedFAButton({
+    required this.icon,
+    required this.onTap,
+    required this.identifier,
+    required this.semanticHint,
+    required this.toolTipOrSemantics,
+    super.key,
+  });
 
+  final IconData icon;
+  final String semanticHint;
+  final WidgetIdentifier identifier;
+  final ToolTipOrSemantics toolTipOrSemantics;
   final void Function(WidgetIdentifier tag) onTap;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
-      if (!state.isFilterApplied && (state.loading || !state.hasData)) {
-        return const SizedBox.shrink();
-      }
-
-      return ShrinkEffectWrapper(
-        tapDownScale: 0.9,
-        tooltipOrSemantics: ToolTipOrSemantics.addTask,
-        child: FloatingActionButton(
-          key: WidgetIdentifier.taskAddFAButton.key,
-          onPressed: () => onTap(WidgetIdentifier.taskAddFAButton),
-          enableFeedback: true,
-          heroTag: WidgetIdentifier.taskAddFAButton.name,
-          tooltip: ToolTipOrSemantics.addTask.toolTip,
-          child: Icon(
-            Icons.add,
-            color: context.theme.primaryColor,
-          ),
+    return ShrinkEffectWrapper(
+      tapDownScale: 0.9,
+      sematicHint: semanticHint,
+      tooltipOrSemantics: toolTipOrSemantics,
+      child: FloatingActionButton(
+        key: identifier.key,
+        enableFeedback: true,
+        heroTag: identifier.name,
+        shape: const CircleBorder(),
+        onPressed: () => onTap(identifier),
+        tooltip: toolTipOrSemantics.toolTip,
+        child: Icon(
+          icon,
+          color: context.theme.primaryColor,
         ),
-      );
-    });
+      ),
+    );
   }
 }

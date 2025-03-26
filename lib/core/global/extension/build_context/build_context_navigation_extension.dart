@@ -8,10 +8,14 @@ extension BuildContextNavigationExtension on BuildContext {
     );
   }
 
-  Future<T?> pushReplacement<T extends Object?>(Widget page) {
+  Future<T?> pushReplacement<T extends Object?, TO extends Object?>(
+    Widget page, [
+    TO? result,
+  ]) {
     return Navigator.pushReplacement(
       this,
       MaterialPageRoute(builder: (context) => page),
+      result: result,
     );
   }
 

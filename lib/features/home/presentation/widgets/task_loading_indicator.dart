@@ -3,8 +3,8 @@ import 'package:shimmer/shimmer.dart';
 import 'package:task_manager/core/global/extension/build_context/build_context_extension.dart';
 import 'package:task_manager/core/global/widgets/decoration_box_widget.dart';
 
-class TaskLoadingIndicator extends StatelessWidget {
-  const TaskLoadingIndicator({super.key});
+class TasksLoadingIndicator extends StatelessWidget {
+  const TasksLoadingIndicator({super.key});
 
   @override
   Widget build(BuildContext context) {

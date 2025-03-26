@@ -33,14 +33,15 @@ class TaskProgressIndicator extends StatelessWidget {
                   overlayShape: SliderComponentShape.noOverlay,
                 ),
                 child: TweenAnimationBuilder(
-                    duration: const Duration(milliseconds: 100),
-                    tween: Tween(begin: progress, end: progress),
-                    builder: (context, value, child) {
-                      return Slider(
-                        value: value,
-                        onChanged: onChangeProgress,
-                      );
-                    }),
+                  duration: const Duration(milliseconds: 100),
+                  tween: Tween(begin: progress, end: progress),
+                  builder: (context, value, child) {
+                    return Slider(
+                      value: value,
+                      onChanged: onChangeProgress,
+                    );
+                  },
+                ),
               ),
             ),
             TextWidget(

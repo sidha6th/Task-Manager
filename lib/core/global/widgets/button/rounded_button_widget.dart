@@ -46,48 +46,51 @@ class CommonRoundedButton extends StatelessWidget {
           child: ShrinkEffectWrapper(
             onTap: _onTap,
             heroTag: heroTag,
-            child: DecoratedBoxWidget(
-              color: context.theme.cardColor,
-              borderRadius: borderRadius,
-              child: Padding(
-                padding: contentPadding,
-                child: Row(
-                  mainAxisSize: expanded ? MainAxisSize.max : MainAxisSize.min,
-                  spacing: 4,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Flexible(
-                      child: AnimatedCrossFade(
+            child: ExcludeSemantics(
+              child: DecoratedBoxWidget(
+                color: context.theme.cardColor,
+                borderRadius: borderRadius,
+                child: Padding(
+                  padding: contentPadding,
+                  child: Row(
+                    mainAxisSize:
+                        expanded ? MainAxisSize.max : MainAxisSize.min,
+                    spacing: 4,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Flexible(
+                        child: AnimatedCrossFade(
+                          duration: const Duration(milliseconds: 200),
+                          crossFadeState: isLoading
+                              ? CrossFadeState.showSecond
+                              : CrossFadeState.showFirst,
+                          firstChild: TextWidget(
+                            label,
+                            style: style ?? context.theme.textTheme.labelLarge,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          secondChild: const SizedBox.shrink(),
+                        ),
+                      ),
+                      AnimatedCrossFade(
                         duration: const Duration(milliseconds: 200),
                         crossFadeState: isLoading
                             ? CrossFadeState.showSecond
                             : CrossFadeState.showFirst,
-                        firstChild: TextWidget(
-                          label,
-                          style: style ?? context.theme.textTheme.labelLarge,
-                          overflow: TextOverflow.ellipsis,
+                        firstChild: icon == null
+                            ? const SizedBox.shrink()
+                            : Icon(
+                                icon,
+                                color: commonIconColor,
+                              ),
+                        secondChild: CircularProgressIndicatorWidget(
+                          dimension: 20,
+                          strokeWidth: 2,
+                          color: commonIconColor,
                         ),
-                        secondChild: const SizedBox.shrink(),
-                      ),
-                    ),
-                    AnimatedCrossFade(
-                      duration: const Duration(milliseconds: 200),
-                      crossFadeState: isLoading
-                          ? CrossFadeState.showSecond
-                          : CrossFadeState.showFirst,
-                      firstChild: icon == null
-                          ? const SizedBox.shrink()
-                          : Icon(
-                              icon,
-                              color: commonIconColor,
-                            ),
-                      secondChild: CircularProgressIndicatorWidget(
-                        dimension: 20,
-                        strokeWidth: 2,
-                        color: commonIconColor,
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ),
             ),

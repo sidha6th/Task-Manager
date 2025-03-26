@@ -70,7 +70,7 @@ class _HomeTasksListHoldingWidgetState
             );
           },
           loading: () => const SliverFillRemaining(
-            child: TaskLoadingIndicator(),
+            child: TasksLoadingIndicator(),
           ),
           error: () {
             return const SliverFillRemaining(

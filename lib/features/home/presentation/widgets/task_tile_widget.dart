@@ -151,6 +151,7 @@ class _TaskListTileState extends State<TaskListTile> {
                     decoration: status.isCompleted
                         ? TextDecoration.lineThrough
                         : TextDecoration.none,
+                    overflow: TextOverflow.ellipsis,
                     color:
                         status.isCompleted ? context.theme.disabledColor : null,
                   ),

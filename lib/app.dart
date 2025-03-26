@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:task_manager/core/global/enums/primary_colors.dart';
 import 'package:task_manager/core/global/widgets/builder/bloc_provider_builder.dart';
+import 'package:task_manager/core/global/widgets/error/generic_error_widget.dart';
 import 'package:task_manager/core/theme/dark.dart';
 import 'package:task_manager/core/theme/light.dart';
+import 'package:task_manager/features/dashboard/dashboard.dart';
 import 'package:task_manager/features/settings/data/repository/settings_repository.dart';
 import 'package:task_manager/features/settings/presentation/bloc/settings_bloc.dart';
 import 'package:task_manager/features/settings/presentation/bloc/settings_event.dart';
@@ -28,7 +30,11 @@ class App extends StatelessWidget {
               theme: lightTheme(primaryColor),
               darkTheme: darkTheme(primaryColor),
               themeMode: data?.themeMode ?? ThemeMode.system,
-              home: SplashPage(isSetupDone: !state.loading),
+              home: state.when(
+                loading: SplashPage.new,
+                success: (data) => const Dashboard(),
+                error: GenericErrorWidget.new,
+              ),
             );
           },
         );

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:task_manager/core/global/enums/tooltip_and_semantics.dart';
 import 'package:task_manager/core/global/enums/widget_identifier.dart';
 import 'package:task_manager/core/global/extension/build_context/build_context_navigation_extension.dart';
 import 'package:task_manager/core/global/extension/build_context/build_context_overlay_widget_extension.dart';
@@ -66,9 +67,19 @@ class _HomePageState extends State<HomePage> {
             ],
           ),
         ),
-        floatingActionButton: AddTaskFABButtonWidget(
-          onTap: (tag) => _pushToAddOrUpdatePage(tag, context),
-        ),
+        floatingActionButton:
+            BlocBuilder<HomeBloc, HomeState>(builder: (context, state) {
+          if (!state.isFilterApplied && (state.loading || !state.hasData)) {
+            return const SizedBox.shrink();
+          }
+          return RoundedFAButton(
+            icon: Icons.add,
+            semanticHint: 'Tap to add new task',
+            identifier: WidgetIdentifier.taskAddFAButton,
+            toolTipOrSemantics: ToolTipOrSemantics.addTask,
+            onTap: (tag) => _pushToAddOrUpdatePage(tag, context),
+          );
+        }),
       ),
     );
   }

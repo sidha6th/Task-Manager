@@ -5,6 +5,7 @@ import 'package:task_manager/core/global/enums/widget_identifier.dart';
 class ShrinkEffectWrapper extends StatefulWidget {
   const ShrinkEffectWrapper({
     required this.child,
+    this.sematicHint,
     this.shrinkDuration = const Duration(milliseconds: 100),
     this.tapDownScale = 0.95,
     this.tooltipOrSemantics,
@@ -15,9 +16,10 @@ class ShrinkEffectWrapper extends StatefulWidget {
 
   final Widget child;
   final VoidCallback? onTap;
-  final WidgetIdentifier? heroTag;
   final double tapDownScale;
   final Duration shrinkDuration;
+  final String? sematicHint;
+  final WidgetIdentifier? heroTag;
   final ToolTipOrSemantics? tooltipOrSemantics;
 
   @override
@@ -49,6 +51,8 @@ class _ShrinkEffectWrapperState extends State<ShrinkEffectWrapper> {
       child = Semantics(
         label: widget.tooltipOrSemantics?.semanticLabel,
         tooltip: widget.tooltipOrSemantics?.toolTip,
+        container: true,
+        button: true,
         child: child,
       );
     }
